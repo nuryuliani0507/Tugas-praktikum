@@ -1,0 +1,157 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 5.5.51 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| animal             |
+| animal1            |
+| animals            |
+| biodata            |
+| biodatamhs         |
+| data               |
+| data1              |
+| data2              |
+| data3              |
+| karyawan           |
+| karyawan1          |
+| karyawan2          |
+| mahasiswa          |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+17 rows in set (0.00 sec)
+
+mysql> create database animal2;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use animal2;
+Database changed
+mysql> create table pet
+    -> (Nama varchar (10) primary key,
+    -> Owner varchar (10) not null,
+    -> Species varchar (10) not null,
+    -> Sex char (1) not null,
+    -> Birth date,
+    -> Death varchar (10) not null);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc pet;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Nama    | varchar(10) | NO   | PRI | NULL    |       |
+| Owner   | varchar(10) | NO   |     | NULL    |       |
+| Species | varchar(10) | NO   |     | NULL    |       |
+| Sex     | char(1)     | NO   |     | NULL    |       |
+| Birth   | date        | YES  |     | NULL    |       |
+| Death   | varchar(10) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.05 sec)
+
+mysql> insert into pet
+    -> (Nama,Owner,Species,Sex,Birth,Death)
+    -> values
+    -> ("Puffball","Diana","Hamster","F","1999-03-03","NULL"),
+    -> ("Claus","Gwen","Cat","M","1994-03-17","NULL"),
+    -> ("Fluffy","Harold","Cat","F","1993-05-13","NULL"),
+    -> ("Buffy","Harold","Dog","F","1989-05-13","NULL"),
+    -> ("Fanny","Benny","Dog","M","1990-08-27","NULL"),
+    -> ("Bowser","Diana","Dog","M","1989-08-31","1995-07-29"),
+    -> ("Chirpy","Gwen","Bird","F","1997-12-09","NULL"),
+    -> ("Whistler","Gwen","Bird","M","1997-12-09","NULL"),
+    -> ("Slim","Benny","Snake","M","1996-04-29","NULL");
+Query OK, 9 rows affected (0.06 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from pet;
++----------+--------+---------+-----+------------+------------+
+| Nama     | Owner  | Species | Sex | Birth      | Death      |
++----------+--------+---------+-----+------------+------------+
+| Bowser   | Diana  | Dog     | M   | 1989-08-31 | 1995-07-29 |
+| Buffy    | Harold | Dog     | F   | 1989-05-13 | NULL       |
+| Chirpy   | Gwen   | Bird    | F   | 1997-12-09 | NULL       |
+| Claus    | Gwen   | Cat     | M   | 1994-03-17 | NULL       |
+| Fanny    | Benny  | Dog     | M   | 1990-08-27 | NULL       |
+| Fluffy   | Harold | Cat     | F   | 1993-05-13 | NULL       |
+| Puffball | Diana  | Hamster | F   | 1999-03-03 | NULL       |
+| Slim     | Benny  | Snake   | M   | 1996-04-29 | NULL       |
+| Whistler | Gwen   | Bird    | M   | 1997-12-09 | NULL       |
++----------+--------+---------+-----+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select count(owner) from pet;
++--------------+
+| count(owner) |
++--------------+
+|            9 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(Species) from pet;
++----------------+
+| count(Species) |
++----------------+
+|              9 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(Sex) from pet;
++------------+
+| count(Sex) |
++------------+
+|          9 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from pet
+    -> where Species
+    -> and Sex;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set, 9 warnings (0.04 sec)
+
+mysql> select count(*) from pet
+    -> where Species="Cat"
+    -> and Species="Dog";
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select sum(Owner) from pet;
++------------+
+| sum(Owner) |
++------------+
+|          0 |
++------------+
+1 row in set, 9 warnings (0.00 sec)
+
+mysql> select count(*) from pet
+    -> where Sex !="NULL";
++----------+
+| count(*) |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+mysql>

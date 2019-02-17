@@ -1,0 +1,186 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.5.51 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| biodata            |
+| biodatamhs         |
+| data               |
+| data1              |
+| data2              |
+| data3              |
+| karyawan           |
+| karyawan1          |
+| karyawan2          |
+| mahasiswa          |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+14 rows in set (0.00 sec)
+
+mysql> use karyawan1;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> use karyawan1;
+Database changed
+mysql> create table pegawai
+    -> (Id_Pegawai char (10) primary key,
+    -> NamaDepan varchar (15) not null,
+    -> NamaBelakang varchar (15) not null,
+    -> Email varchar (20) not null,
+    -> Telepon char (15) not null,
+    -> TglKontrak date,
+    -> IdJob char (10) not null,
+    -> Gaji int (10) not null,
+    -> Tunjangan varchar (10) not null);
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc pegawai;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Id_Pegawai   | char(10)    | NO   | PRI | NULL    |       |
+| NamaDepan    | varchar(15) | NO   |     | NULL    |       |
+| NamaBelakang | varchar(15) | NO   |     | NULL    |       |
+| Email        | varchar(20) | NO   |     | NULL    |       |
+| Telepon      | char(15)    | NO   |     | NULL    |       |
+| TglKontrak   | date        | YES  |     | NULL    |       |
+| IdJob        | char(10)    | NO   |     | NULL    |       |
+| Gaji         | int(10)     | NO   |     | NULL    |       |
+| Tunjangan    | varchar(10) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+9 rows in set (0.06 sec)
+
+mysql> insert into pegawai
+    -> (Id_Pegawai,NamaDepan,NamaBelakang,Email,Telepon,TglKontrak,IdJob,Gaji,Tunjangan)
+    -> values
+    -> ("E001","Ferry","Gustiawan","ferry@yahoo.com","08771170590","2005-09-01","L001","2000000","500000"),
+    -> ("E002","Aris","Ganiardi","aris@yahoo.com","081312345678","2006-09-01","L002","2000000","200000"),
+    -> ("E003","Fais","Ahmad","fais@gmail.com","081367384322","2006-10-01","L003","1500000","NULL"),
+    -> ("E004","Emma","Bunton","emma@gmail.com","081363484342","2006-10-01","L004","1500000","0"),
+    -> ("E005","Mike","Scoff","mike@plasa.com","08163454555","2007-09-01","L005","1250000","0"),
+    -> ("E006","Lincoln","Burrows","linc@gmail.com","08527388432","2008-09-01","L006","1750000","NULL");
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc pegawai;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Id_Pegawai   | char(10)    | NO   | PRI | NULL    |       |
+| NamaDepan    | varchar(15) | NO   |     | NULL    |       |
+| NamaBelakang | varchar(15) | NO   |     | NULL    |       |
+| Email        | varchar(20) | NO   |     | NULL    |       |
+| Telepon      | char(15)    | NO   |     | NULL    |       |
+| TglKontrak   | date        | YES  |     | NULL    |       |
+| IdJob        | char(10)    | NO   |     | NULL    |       |
+| Gaji         | int(10)     | NO   |     | NULL    |       |
+| Tunjangan    | varchar(10) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> select * from pegawai;
++------------+-----------+--------------+-----------------+--------------+------------+-------+---------+-----------+
+| Id_Pegawai | NamaDepan | NamaBelakang | Email           | Telepon      | TglKontrak | IdJob | Gaji    | Tunjangan |
++------------+-----------+--------------+-----------------+--------------+------------+-------+---------+-----------+
+| E001       | Ferry     | Gustiawan    | ferry@yahoo.com | 08771170590  | 2005-09-01 | L001  | 2000000 | 500000    |
+| E002       | Aris      | Ganiardi     | aris@yahoo.com  | 081312345678 | 2006-09-01 | L002  | 2000000 | 200000    |
+| E003       | Fais      | Ahmad        | fais@gmail.com  | 081367384322 | 2006-10-01 | L003  | 1500000 | NULL      |
+| E004       | Emma      | Bunton       | emma@gmail.com  | 081363484342 | 2006-10-01 | L004  | 1500000 | 0         |
+| E005       | Mike      | Scoff        | mike@plasa.com  | 08163454555  | 2007-09-01 | L005  | 1250000 | 0         |
+| E006       | Lincoln   | Burrows      | linc@gmail.com  | 08527388432  | 2008-09-01 | L006  | 1750000 | NULL      |
++------------+-----------+--------------+-----------------+--------------+------------+-------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from pegawai
+    -> where Gaji <>"2000000"
+    -> and Gaji <>"1250000";
++------------+-----------+--------------+----------------+--------------+------------+-------+---------+-----------+
+| Id_Pegawai | NamaDepan | NamaBelakang | Email          | Telepon      | TglKontrak | IdJob | Gaji    | Tunjangan |
++------------+-----------+--------------+----------------+--------------+------------+-------+---------+-----------+
+| E003       | Fais      | Ahmad        | fais@gmail.com | 081367384322 | 2006-10-01 | L003  | 1500000 | NULL      |
+| E004       | Emma      | Bunton       | emma@gmail.com | 081363484342 | 2006-10-01 | L004  | 1500000 | 0         |
+| E006       | Lincoln   | Burrows      | linc@gmail.com | 08527388432  | 2008-09-01 | L006  | 1750000 | NULL      |
++------------+-----------+--------------+----------------+--------------+------------+-------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from pegawai
+    -> where Tunjangan="NULL";
++------------+-----------+--------------+----------------+--------------+------------+-------+---------+-----------+
+| Id_Pegawai | NamaDepan | NamaBelakang | Email          | Telepon      | TglKontrak | IdJob | Gaji    | Tunjangan |
++------------+-----------+--------------+----------------+--------------+------------+-------+---------+-----------+
+| E003       | Fais      | Ahmad        | fais@gmail.com | 081367384322 | 2006-10-01 | L003  | 1500000 | NULL      |
+| E006       | Lincoln   | Burrows      | linc@gmail.com | 08527388432  | 2008-09-01 | L006  | 1750000 | NULL      |
++------------+-----------+--------------+----------------+--------------+------------+-------+---------+-----------+
+2 rows in set (0.03 sec)
+
+mysql> select * from pegawai
+    -> where Tunjangan !="NULL";
++------------+-----------+--------------+-----------------+--------------+------------+-------+---------+-----------+
+| Id_Pegawai | NamaDepan | NamaBelakang | Email           | Telepon      | TglKontrak | IdJob | Gaji    | Tunjangan |
++------------+-----------+--------------+-----------------+--------------+------------+-------+---------+-----------+
+| E001       | Ferry     | Gustiawan    | ferry@yahoo.com | 08771170590  | 2005-09-01 | L001  | 2000000 | 500000    |
+| E002       | Aris      | Ganiardi     | aris@yahoo.com  | 081312345678 | 2006-09-01 | L002  | 2000000 | 200000    |
+| E004       | Emma      | Bunton       | emma@gmail.com  | 081363484342 | 2006-10-01 | L004  | 1500000 | 0         |
+| E005       | Mike      | Scoff        | mike@plasa.com  | 08163454555  | 2007-09-01 | L005  | 1250000 | 0         |
++------------+-----------+--------------+-----------------+--------------+------------+-------+---------+-----------+
+4 rows in set (0.00 sec)
+
+
+mysql> select count(*) from pegawai;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.03 sec)
+
+mysql> select sum(Gaji) from pegawai;
++-----------+
+| sum(Gaji) |
++-----------+
+|  10000000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Gaji) from pegawai;
++--------------+
+| avg(Gaji)    |
++--------------+
+| 1666666.6667 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select min(Gaji) from pegawai;
++-----------+
+| min(Gaji) |
++-----------+
+|   1250000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select max(Gaji) from pegawai;
++-----------+
+| max(Gaji) |
++-----------+
+|   2000000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql>
