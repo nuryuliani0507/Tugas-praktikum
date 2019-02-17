@@ -1,0 +1,189 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.5.51 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database biodata2;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use biodata2;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| biodata            |
+| biodata2           |
+| data               |
+| data1              |
+| data2              |
+| data3              |
+| mahasiswa          |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+11 rows in set (0.01 sec)
+
+mysql> drop database biodata2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| biodata            |
+| data               |
+| data1              |
+| data2              |
+| data3              |
+| mahasiswa          |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+10 rows in set (0.01 sec)
+
+mysql> use biodata;
+Database changed
+mysql> create table mhs
+    -> (Nim char (10) primary key,
+    -> Nama varchar (20) not null,
+    -> Alamat varchar (30) not null,
+    -> Kota varchar (20) not null,
+    -> Kode_Pos varchar (10) not null,
+    -> NoHp char (15) not null);
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_biodata |
++-------------------+
+| biodata           |
+| data              |
+| mhs               |
++-------------------+
+3 rows in set (0.01 sec)
+
+mysql> desc mhs;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Nim      | char(10)    | NO   | PRI | NULL    |       |
+| Nama     | varchar(20) | NO   |     | NULL    |       |
+| Alamat   | varchar(30) | NO   |     | NULL    |       |
+| Kota     | varchar(20) | NO   |     | NULL    |       |
+| Kode_Pos | varchar(10) | NO   |     | NULL    |       |
+| NoHp     | char(15)    | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> rename table mhs to mahasiswa;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_biodata |
++-------------------+
+| biodata           |
+| data              |
+| mahasiswa         |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table mahasiswa
+    -> add JenisKelamin varchar (10) not null,
+    -> add KodeDosen varchar (10) not null;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mahasiswa;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Nim          | char(10)    | NO   | PRI | NULL    |       |
+| Nama         | varchar(20) | NO   |     | NULL    |       |
+| Alamat       | varchar(30) | NO   |     | NULL    |       |
+| Kota         | varchar(20) | NO   |     | NULL    |       |
+| Kode_Pos     | varchar(10) | NO   |     | NULL    |       |
+| NoHp         | char(15)    | NO   |     | NULL    |       |
+| JenisKelamin | varchar(10) | NO   |     | NULL    |       |
+| KodeDosen    | varchar(10) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+
+mysql> alter table mahasiswa
+    -> add Tgl_Lahir date after JenisKelamin;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mahasiswa;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Nim          | char(10)    | NO   | PRI | NULL    |       |
+| Nama         | varchar(20) | NO   |     | NULL    |       |
+| Alamat       | varchar(30) | NO   |     | NULL    |       |
+| Kota         | varchar(20) | NO   |     | NULL    |       |
+| Kode_Pos     | varchar(10) | NO   |     | NULL    |       |
+| NoHp         | char(15)    | NO   |     | NULL    |       |
+| JenisKelamin | varchar(10) | NO   |     | NULL    |       |
+| Tgl_Lahir    | date        | YES  |     | NULL    |       |
+| KodeDosen    | varchar(10) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> alter table mahasiswa
+    -> change JenisKelamin JenKel char (1) not null;
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mahasiswa;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nim       | char(10)    | NO   | PRI | NULL    |       |
+| Nama      | varchar(20) | NO   |     | NULL    |       |
+| Alamat    | varchar(30) | NO   |     | NULL    |       |
+| Kota      | varchar(20) | NO   |     | NULL    |       |
+| Kode_Pos  | varchar(10) | NO   |     | NULL    |       |
+| NoHp      | char(15)    | NO   |     | NULL    |       |
+| JenKel    | char(1)     | NO   |     | NULL    |       |
+| Tgl_Lahir | date        | YES  |     | NULL    |       |
+| KodeDosen | varchar(10) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> alter table mahasiswa
+    -> modify Kota varchar (30) not null;
+Query OK, 0 rows affected (0.48 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mahasiswa;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nim       | char(10)    | NO   | PRI | NULL    |       |
+| Nama      | varchar(20) | NO   |     | NULL    |       |
+| Alamat    | varchar(30) | NO   |     | NULL    |       |
+| Kota      | varchar(30) | NO   |     | NULL    |       |
+| Kode_Pos  | varchar(10) | NO   |     | NULL    |       |
+| NoHp      | char(15)    | NO   |     | NULL    |       |
+| JenKel    | char(1)     | NO   |     | NULL    |       |
+| Tgl_Lahir | date        | YES  |     | NULL    |       |
+| KodeDosen | varchar(10) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql>
